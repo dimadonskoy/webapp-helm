@@ -35,7 +35,7 @@ helm install webapp . --namespace webapp
 
 This will:
 - Create the `webapp` namespace (if not present)
-- Apply the PV, PVC, ConfigMap, Deployment, and Service resources 
+- Apply the PV, PVC, Deployment, and Service resources 
 
 ### 3. Access the Web Application
 
