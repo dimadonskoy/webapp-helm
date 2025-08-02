@@ -1,55 +1,54 @@
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png" alt="Kubernetes" height="60">
+</p>
+
 # webapp
 
 A Helm chart for deploying webapp
 
-## Get Started
-
-## TL;DR
-
-```bash
-helm repo add webapp https://example.com/
-helm install webapp/webapp
+## Project Structure
 ```
-
-## Introduction
-
-This chart bootstraps a [webapp](https://example.com/) deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+├── Chart.yaml
+├── README.md
+├── templates
+│   ├── _helpers.tpl
+│   ├── deployment.yaml
+│   ├── pv.yaml
+│   ├── pvc.yaml
+│   └── service.yaml
+├── values.yaml
+└── webapp-0.0.1.tgz
+```
 
 ## Prerequisites
 
-- Kubernetes 1.19+
+- K3s/K8s cluster
 - Helm 3.2.0+
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`:
-
 ```bash
-helm install my-release webapp/webapp
+kubectl create namespace webapp
+helm install webapp . --namespace webapp
 ```
 
-The command lists the resources deployed by the chart.
+This will:
+- Create the `webapp` namespace (if not present)
+- Apply the PV, PVC, ConfigMap, Deployment, and Service resources 
 
-## Uninstalling the Chart
+### 3. Access the Web Application
 
-To uninstall the `my-release` deployment:
+The service is exposed on NodePort `31234`. You can access it at:
 
-```bash
-helm uninstall my-release
+```
+http://localhost:31234/ in web browser or test with - curl localhost:31234
 ```
 
-The command removes all the Kubernetes components associated with the chart and deletes the release.
+Author:
+- Dmitri Donskoy
+- Email: crooper22@gmail.com
 
-## Configuration
+## License
 
-The following table lists the configurable parameters of the webapp chart and their default values.
-
-| Parameter | Description | Default |
-|---|---|---|
-| `replicaCount` | Number of webapp replicas | `1` |
-| `image.repository` | webapp image repository | `mcr.microsoft.com/dotnet/samples/webapp` |
-| `image.tag` | webapp image tag | `latest` |
-| `image.pullPolicy` | webapp image pull policy | `IfNotPresent` |
-| `service.type` | webapp service type | `ClusterIP` |
-| `service.port` | webapp service port | `80` |
-|
+MIT License
